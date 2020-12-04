@@ -21,8 +21,12 @@ def main(file_loc):
     for line in lines:
         if line == previous:
             continue
-        transcript += " " + line
+        if transcript == "":
+            transcript = line
+        else:
+            transcript += "\n" + line
         previous = line
+    previous = previous.strip()
 
     filename = os.path.basename(os.path.normpath(file_loc))
     with open(f"cleaned_{filename}.txt", "w", encoding='utf8', errors="ignore") as f:
