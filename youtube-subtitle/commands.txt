@@ -1,2 +1,9 @@
+# Mark Rober
+Make sure you're in the right folder where you want to download (eg: data/mark_rober)
 youtube-dl --write-sub --write-auto-sub --skip-download https://www.youtube.com/playlist?list=UUY1kMZp36IQSyNx_9h4mpCg
-vtt2text.py data/mark_rober
+python vtt2text.py data/mark_rober
+
+# Casey Neistat
+youtube-dl --write-sub --write-auto-sub --skip-download https://www.youtube.com/playlist?list=PLTHOlLMWEwVy52FUngq91krMkQDQBagYw
+--playlist-start 188  # Only downloaded the first 188
+python vtt2text.py data/casey
