@@ -19,6 +19,7 @@ def main(file_loc):
     # Remove repeated lines
     previous = None
     for line in lines:
+        line = line.replace("&amp;", "&")
         if line == previous:
             continue
         if transcript == "":
