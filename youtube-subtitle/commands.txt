@@ -1,0 +1,2 @@
+youtube-dl --write-sub --write-auto-sub --skip-download https://www.youtube.com/playlist?list=UUY1kMZp36IQSyNx_9h4mpCg
+vtt2text.py data/mark_rober
