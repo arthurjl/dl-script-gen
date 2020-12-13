@@ -20,3 +20,10 @@ source venv/Scripts/activate
 Then if you do flask run, it should serve the website! (if not, make sure you pip install -r requirements.txt etc.)
 
 Also remember that if you update css or js, you need to do a hard refresh in your browser (shift + f5) so that it clears the cache. Since the server is in development mode (see .flaskenv) it should refresh the server when you make python changes!!!
+
+
+## heroku baloney
+The -f flag is fine since we just use git to push things essentially
+```
+git push -f heroku
+```
