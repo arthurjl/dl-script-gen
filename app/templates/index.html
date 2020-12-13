@@ -1,12 +1,154 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 {% endblock %}
 
 {% block content %}
-<h1>Hi！</h1>
-{% for elem in data %}
-<di class="yip"v><p>{{ elem.author.username }} says: <b>{{ elem.body }}</b></p></div>
-{% endfor %}
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="display-3">Speech-to-Speech:</h1>
+        <h3 class="display-4">Realistic Audio Reading of Generated Transcripts</h2>
+        <br>
+        <p>Arthur Liu, Taylor Ka, Daniel Zhu</p>
+      </div>
+    </section>
+
+    <div>
+        <div class="container">
+            <div class="col-12">
+                <p class="lead">
+                    Now that the quarter is almost over... aren't you going to miss listening to all your professors lectures? No? Maybe you've just watched all the Youtube videos
+                    from your favorite vlogger? Are you sitting there pulling down to refresh waiting for new content? <b>Well regardless... you don't have to miss a beat!</b>  
+                </p>
+                <p class="lead">
+                    Speech-to-Speech generates new video scripts and uses the original creator's voice to produce an audio reading. 
+                </p>
+                <h3>Try it yourself!</h3>
+                <br>
+                <form>
+                    <div class="form-group">
+                        <label for="seedWords">Seed Words</label>
+                        <input type="text" class="form-control" name="seedWords" id="seedWords" placeholder="Enter seed words">
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <p>Text Generator</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="textGenerator" id="stuartReges" value="stuartReges">
+                                <label class="form-check-label" for="stuartReges">
+                                  Stuart Reges Lectures
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="textGenerator" id="caseyNeistat" value="caseyNeistat">
+                                <label class="form-check-label" for="caseyNeistat">
+                                  Casey Neistat Vlogs
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <p>Audio Reader</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="audioReader" id="stuartRegesVoice" value="stuartRegesVoice">
+                                <label class="form-check-label" for="stuartRegesVoice">
+                                  Stuart Reges
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="audioReader" id="caseyNeistatVoice" value="caseyNeistatVoice">
+                                <label class="form-check-label" for="caseyNeistatVoice">
+                                  Casey Neistat
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Generate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <br>
+        {% if text is not none %}
+            <h3>Generated Text</h3>
+            <p>{{ text }}</p>
+        {% endif %}
+
+        {% if audio is not none %}
+            <audio controls>
+                <source src="{{ audio }}" type="audio/wav">
+            </audio>
+        {% endif %}
+    </div>
+
+
+    <div class="py-5">
+        <div class="container">
+            <hr>
+            <h2>How we made it</h2>
+            <p>This is how we built the project: </p>
+            <!-- Created and copied from draw io -->
+            <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile modified=\&quot;2020-12-13T13:19:38.832Z\&quot; host=\&quot;app.diagrams.net\&quot; agent=\&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\&quot; etag=\&quot;YQCihewNGoS7LejKZ34G\&quot; version=\&quot;14.0.1\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;Ht1M8jgEwFfnCIfOTk4-\&quot; name=\&quot;Page-1\&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+            <p> In the following sections, we'll go into more detail about each of the 3 sections: dataset creation, text generation, and speech synthesis. Finally, we will discuss our results 
+                and compare the different models we experimented with.
+            </p>
+
+            <h3>Dataset Creation</h3>
+            <p>The fun of this project comes from being able to style both the text generation and speech synthesis to people that we were familiar with. So, we collected this data online
+                from documentaries, Youtube, and online courseware. Sometimes, it was difficult to ensure that the transcripts of the videos we found were high quality, this was especially true
+                when we used auto-generated English captions from Youtube vieos. All in all, we created a few datasets listed below:
+            <div class="col-8 mx-auto">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Source</th>
+                            <th scope="col">Size</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>Stuart Reges</td>
+                                <td>Idk how we got his past lectures</td>
+                                <td>Not sure</td>
+                            </tr>
+                            <tr>
+                                <td>Casey Neistat</td>
+                                <td>Youtube</td>
+                                <td>how big</td>
+                            </tr>
+                            <tr>
+                                <td>Planet Earth</td>
+                                <td>Subslikescript</td>
+                                <td>these were</td>
+                            </tr>
+                        </tbody>
+                    </thead>
+                </table>
+            </div>    
+            </p>
+            <h3>Text Generation</h3>
+            <p>This is how we made a really cool language model</p>
+            <h3>Speech Synthesis</h3>
+            <p>This is how we faked all those voices</p>
+            <h3>Results</h3>
+            <p>A comparison of all the things we tried</p>
+        </div>
+
+    </div>
+
+</main>
+
+<script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
 {% endblock %}

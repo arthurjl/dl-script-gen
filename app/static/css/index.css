@@ -5,3 +5,9 @@
     background-color: yellow;
     display: inline-block;
 }
+
+.jumbotron {
+    background-image: url("https://i.pinimg.com/originals/4b/b0/ae/4bb0ae86f6ebc52cb98cd15d01685245.jpg");
+    background-size: cover;
+    color: white;
+}
