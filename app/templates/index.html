@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Hi！</h1>
+{% for elem in data %}
+<di class="yip"v><p>{{ elem.author.username }} says: <b>{{ elem.body }}</b></p></div>
+{% endfor %}
+{% endblock %}
