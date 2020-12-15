@@ -1,0 +1,6 @@
+*.ipynb
+*.md
+
+/youtube-subtitle
+/models
+/exampledata

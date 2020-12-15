@@ -89,13 +89,35 @@
         <br>
         {% if text is not none %}
             <h3>Generated Text</h3>
-            <p>{{ text }}</p>
+            {% for p in text %}
+                <p>{{ p }}</p>
+            {% endfor %}
         {% endif %}
 
         {% if audio is not none %}
-            <audio controls>
-                <source src="{{ audio }}" type="audio/wav">
-            </audio>
+            <h3>Audio Reading</h3>
+            <p>
+                <audio controls>
+                    <source src="{{ audio }}" type="audio/wav">
+                </audio>
+            </p>
+        {% endif %}
+
+        {% if visualizations is not none %}
+            <h3>
+                Visualizatizing the Neurons
+            </h3>
+            <p>
+                How individual cells contribute to the predictions - Red = Higher Activity, Blue = Mostly Inactive
+            </p>
+            {% for visualization in visualizations %}
+            <p>
+                Cell #{{ visualization[0] }}
+            </p>
+            <p>
+                {{ visualization[1] }}
+            </p>
+            {% endfor %}
         {% endif %}
     </div>
 
