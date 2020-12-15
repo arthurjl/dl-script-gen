@@ -93,9 +93,28 @@
         {% endif %}
 
         {% if audio is not none %}
-            <audio controls>
-                <source src="{{ audio }}" type="audio/wav">
-            </audio>
+            <p>
+                <audio controls>
+                    <source src="{{ audio }}" type="audio/wav">
+                </audio>
+            </p>
+        {% endif %}
+
+        {% if visualizations %}
+            <h4>
+                Visualization of the text.
+            </h4>
+            <p>
+                Notice that blha bllah blah blahb labh
+            </p>
+            {% for visualization in visualizations %}
+            <p>
+                Cell Number {{ visualization[0] }}
+            </p>
+            <p>
+                {{ visualization[1] }}
+            </p>
+            {% endfor %}
         {% endif %}
     </div>
 
