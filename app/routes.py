@@ -3,6 +3,7 @@ from app import app
 from app.generate import generate
 from app.vocab import Vocabulary
 from app.models import ScriptGenModelNLayer
+from app.visualization import generate_and_visualize_strategies, visualize
 
 # Load pre-determined vocabs
 office_vocab = Vocabulary("./app/vocab/office_transcript_end_scene_linebreak_chars_train.pkl")
@@ -31,3 +32,25 @@ def index():
     else:
         return render_template('index.html', text=None, audio=None)
     
+
+# TODO re-wrap into main
+@app.route('/visualize', methods=['GET'])
+def visualize_text_page():
+    seed_words = "Michael: Do you remember that guy called Daniel"
+    generated_sentence, activation_values = generate_and_visualize_strategies(model=models["office"],
+                                    device='cpu',
+                                    seed_words=seed_words,
+                                    sequence_length=500,
+                                    vocab=vocabs["office"],
+                                    strategy="max",
+                                    temperature=0.5,
+                                    beam_width=15)
+
+    result = ""
+    for cell_no in [700, 652, 625, 643]:
+        html_colors = visualize(generated_sentence, activation_values, cell_no)
+
+        cell_no_text = "\nCell Number: " + str(cell_no) +"\n"
+        print(cell_no_text)
+        result += html_colors.data
+    return result
