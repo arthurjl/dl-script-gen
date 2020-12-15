@@ -51,7 +51,19 @@
             <p class="lead">Unfortunately, we never got training working here. We ran into issues with incompatibility with training locally on Windows and Colab due to process spawning. We additionally tried running on attu since this was the only Linux system we had, but encountered issues due to memory limits..</p>
             
             <p class="lead">
-                View our Wavenet notebook to see our struggles: <a href="https://colab.research.google.com/drive/1ui3X-V-tSxnRG3wnr2VDZ4D_iIVXAJLV?usp=sharing" target="_blank">https://colab.research.google.com/drive/1ui3X-V-tSxnRG3wnr2VDZ4D_iIVXAJLV?usp=sharing</a></h2>
+                View our <a href="https://colab.research.google.com/drive/1ui3X-V-tSxnRG3wnr2VDZ4D_iIVXAJLV?usp=sharing" target="_blank">Wavenet notebook</a> to see our struggles.</h2>
+                <p class="lead">
+            </p>
+        </div>
+
+        <div class="container">
+            <br>
+            <h2>Experiment 3: <a href="https://github.com/NVIDIA/waveglow" target="_blank">WaveGlow</a></h2>
+            <p class="lead">We found WaveGlow, which similarly is a vocoder that can synthesize speech from mel spectrograms. We tried running the pretrained models in this repository to synthesize speech from mel spectrograms of Stuart. The model was trained on a different sampling rate, so our output sounded very slow.</p>
+            <p class="lead">However, when we attempted to train our own model, we ran into more incompatibility issues with Colab and libraries that the training relies on. Setup is rough :((</p>
+            
+            <p class="lead">
+                Here's our <a href="https://colab.research.google.com/drive/1HC6XugC0n61nnzlfRp4VxETf6NRi7pp6?usp=sharing" target="_blank">WaveGlow</a> notebook for more setup fun.</h2>
                 <p class="lead">
             </p>
         </div>
