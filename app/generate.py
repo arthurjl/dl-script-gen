@@ -124,7 +124,7 @@ def visualize(generated_sentence, activation_values, cell_no):
 
 def construct_visualization(activation_values, text, n_visuals):
     result = []
-    for cell_no in random.sample(range(len(activation_values[0])), n_visuals):
+    for cell_no in [625, 643, 652, 700]:
         print("Processing cell_no: " + str(cell_no))
         html_colors = visualize(text, activation_values, cell_no)
         cell_result = html_colors.data
