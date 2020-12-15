@@ -2,6 +2,9 @@ import os
 import torch
 import app.models
 
+DEVICE = "cpu"
+SEQUENCE_LENGTH = 512
+
 def max_sampling_strategy(sequence_length, model, output, hidden, vocab, temperature=0.5):
     outputs = []
     for ii in range(sequence_length):
@@ -68,6 +71,5 @@ def generate_language(model, device, seed_words, sequence_length, vocab, samplin
             outputs = beam_sampling_strategy(sequence_length, beam_width, model, output, hidden, vocab)
         return vocab.array_to_words(seed_words_arr.tolist() + outputs)
 
-def generate(language_model, speech_model, seed_words):
-    if language_model == "office":
-        pass
+def generate(language_model, vocab, speech_model, seed_words):
+    return generate_language(language_model, DEVICE, seed_words, SEQUENCE_LENGTH, vocab, sampling_strategy="sampling")
