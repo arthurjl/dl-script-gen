@@ -1,0 +1,7 @@
+ScriptGenModelNLayer(
+  (encoder): Embedding(111, 512)
+  (lstm): LSTM(512, 512, num_layers=2, batch_first=True)
+  (decoder): Linear(in_features=512, out_features=111, bias=True)
+)
+seq length: 100, batch_size: 64, feat_size: 512, test_batch_size: 256, lr: 0.002, decay: 0.0005
+office_transcript_end_scene_linebreak
