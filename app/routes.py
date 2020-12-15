@@ -29,5 +29,7 @@ def index():
         return render_template('index.html', text=text, audio=audio, visualizations=visualizations)
     else:
         return render_template('index.html', text=None, audio=None, visualizations=None)
-    
 
+@app.route('/text-to-speech', methods=['GET'])  
+def text_to_speech():
+    return render_template('text_to_speech.html')
