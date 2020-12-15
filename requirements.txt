@@ -23,7 +23,7 @@ pyparsing==2.4.7
 python-dateutil==2.8.1
 python-dotenv==0.15.0
 six==1.15.0
-torch==1.7.1
+https://download.pytorch.org/whl/cpu/torch-1.7.1%2Bcpu-cp38-cp38-linux_x86_64.whl
 traitlets==5.0.5
 typing-extensions==3.7.4.3
 wcwidth==0.2.5
