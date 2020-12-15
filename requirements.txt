@@ -28,3 +28,4 @@ traitlets==5.0.5
 typing-extensions==3.7.4.3
 wcwidth==0.2.5
 Werkzeug==1.0.1
+gevent # TODO: someone with pip, please give a version

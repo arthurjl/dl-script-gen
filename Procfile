@@ -1,1 +1,1 @@
-web: gunicorn showcase:app
+web: gunicorn showcase:app  --worker-class gevent
