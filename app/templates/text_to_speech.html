@@ -65,6 +65,8 @@
             <p class="lead">Finally, we found Flowtron through <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">this blog post</a></h2> and were excited about the discussion of style transfer! Flowtron takes input text, encodes embeddings of these words, and decodes these embeddings to produce mel spectrograms. Then, the mel spectrograms can be decoded into waveforms using vocoders like Waveglow. Since we ran into so many training issues when trying to train a vocoder, we focused on training Flowtron instead and used a pretrained Waveglow model.</p>
             <!-- TODO: insert image for structure -->
 
+            <p class="lead">Flowtron network structure (excluding include text encoder and gate layer, source <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">here</a>)<img src="static/graphs/flowtron-diagram.png" alt="Flowtron Diagram" style="width:100%"></p>
+
             <p class="lead">We realized that in order to train this speech synthesis model end-to-end, we needed audio files along with transcribed text of what the speaker was saying. Initially, we were worried that this was a hurdle we wouldn’t be able to overcome, since we weren’t sure how we could find such extensive data sets on the speakers we were interested in. However, we realized that YouTubers that include human transcribed captions in their videos could be a source of this data! .vtt files include timestamps for each caption text, so we were able to parse the caption files and create a dataset of short audio clips from Kurzgesagt along with the corresponding text.</p>
 
             <p class="lead">We finally were able to get a model training, which was super exciting!! We had about 3 hours of Kurzgesagt data, so based on the recommendations in the blog, we decided to work from a pretrained model and try both fine-tuning the last layer and training the last layer from scratch. We started transfer learning from a model trained on the <a href="https://keithito.com/LJ-Speech-Dataset/" target="_blank">LJS dataset</a>.</p>
@@ -81,9 +83,11 @@
                     <source src="static/audio-examples/flowtron-kurzgesagt-finals-finetune3-model22750.wav" type="audio/wav">
                 </audio>
             </p> 
-            <p class="lead">Finetuned training loss (negative log likelihood)</p>
+            <p class="lead">Finetuned training loss (negative log likelihood) vs. Iterations</p>
             <img src="static/graphs/flowtron-finetune-training_loss.svg" alt="Flowtron Finetuned Training Loss">
-            <p class="lead">Finetuned validation loss (negative log likelihood)</p>
+            <br>
+            <br>
+            <p class="lead">Finetuned validation loss (negative log likelihood)  vs. Iterations</p>
             <img src="static/graphs/flowtron-finetune-validation_loss.svg" alt="Flowtron Finetuned Validation Loss">
 
             <br>
@@ -100,9 +104,11 @@
                     <source src="static/audio-examples/flowtron-kurzgesagt-finals-ignore1-model3250.wav" type="audio/wav">
                 </audio>
             </p> 
-            <p class="lead">Last layer from scratch training loss (negative log likelihood)</p>
+            <p class="lead">Last layer from scratch training loss (negative log likelihood) vs. Iterations</p>
             <img src="static/graphs/flowtron-ignore-training_loss.svg" alt="Layer From Scratch Training Loss">
-            <p class="lead">Last layer from scratch validation loss (negative log likelihood)</p>
+            <br>
+            <br>
+            <p class="lead">Last layer from scratch validation loss (negative log likelihood) vs. Iterations</p>
             <img src="static/graphs/flowtron-ignore-validation_loss.svg" alt="Last Layer From Scratch Validation Loss">
 
             <br>
