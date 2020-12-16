@@ -85,6 +85,24 @@
             <img src="static/graphs/flowtron-finetune-training_loss.svg" alt="Flowtron Finetuned Training Loss">
             <p class="lead">Finetuned validation loss (negative log likelihood)</p>
             <img src="static/graphs/flowtron-finetune-validation_loss.svg" alt="Flowtron Finetuned Validation Loss">
+
+            <br>
+            <h3>Experiment 4.2: Training the last layer from scratch</h3>
+            <p class="lead">We next tried training the last layer from scratch. We saw our validation loss initially decrease to -0.81 after ~3.5k iterations which seemed a lot more reasonable! However, again we noticed that the attention visualizations did not look crisp and clear. When we tried synthesizing audio, the speech was much noisier than before and sounded much more raw and unrefined. However, we did notice that the speaker’s voice sounded more masculine, and possibly closer to Kurzgesagt. Additionally, we were able to hear a snippet of coherent words coming through (listen for "finals week" in the audio clip below), unlike the babbling vowels from our previous model.</p>
+            <p class="lead">As we continued training, we saw the validation loss rapidly increase as the model began to overfit. According to Flowtron’s documentation, we should have had enough data to train the model, so we were likely overfitting to noise in our audio.</p>
+            <p class="lead">
+                Generated speech after training the last layer from scratch at 3.25k iterations:
+                <br>
+                “Oh man, finals week is a little rough.”
+                <br>
+                <audio controls>
+                    <source src="static/audio-examples/flowtron-kurzgesagt-finals-ignore1-model3250.wav" type="audio/wav">
+                </audio>
+            </p> 
+            <p class="lead">Last layer from scratch training loss (negative log likelihood)</p>
+            <img src="static/graphs/flowtron-ignore-training_loss.svg" alt="Layer From Scratch Training Loss">
+            <p class="lead">Last layer from scratch validation loss (negative log likelihood)</p>
+            <img src="static/graphs/flowtron-ignore-validation_loss.svg" alt="Last Layer From Scratch Validation Loss">
         </div>
     </div>
 
