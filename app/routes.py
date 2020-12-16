@@ -17,13 +17,18 @@ models = {
     "office": office_model
 }
 
+# Cells to visualize
+vis_cells = {
+    "office": [700, 652, 625, 643]
+}
+
 @app.route('/')
 @app.route('/index', methods=['GET'])
 def index():
     data = request.args
     # Generate some text with the data and the audio clip
     if data:
-        text, visualizations = generate_and_visualize(models[data["languageModel"]], vocabs[data["languageModel"]], data["seedWords"], None)
+        text, visualizations = generate_and_visualize(models[data["languageModel"]], vocabs[data["languageModel"]], data["seedWords"], vis_cells[data["languageModel"]], None)
         text = text.split("\n")
         audio = "./static/out289.wav"
         return render_template('index.html', text=text, audio=audio, visualizations=visualizations)
