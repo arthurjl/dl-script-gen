@@ -87,6 +87,7 @@
             <img src="static/graphs/flowtron-finetune-validation_loss.svg" alt="Flowtron Finetuned Validation Loss">
 
             <br>
+            <br>
             <h3>Experiment 4.2: Training the last layer from scratch</h3>
             <p class="lead">We next tried training the last layer from scratch. We saw our validation loss initially decrease to -0.81 after ~3.5k iterations which seemed a lot more reasonable! However, again we noticed that the attention visualizations did not look crisp and clear. When we tried synthesizing audio, the speech was much noisier than before and sounded much more raw and unrefined. However, we did notice that the speaker’s voice sounded more masculine, and possibly closer to Kurzgesagt. Additionally, we were able to hear a snippet of coherent words coming through (listen for "finals week" in the audio clip below), unlike the babbling vowels from our previous model.</p>
             <p class="lead">As we continued training, we saw the validation loss rapidly increase as the model began to overfit. According to Flowtron’s documentation, we should have had enough data to train the model, so we were likely overfitting to noise in our audio.</p>
@@ -103,6 +104,14 @@
             <img src="static/graphs/flowtron-ignore-training_loss.svg" alt="Layer From Scratch Training Loss">
             <p class="lead">Last layer from scratch validation loss (negative log likelihood)</p>
             <img src="static/graphs/flowtron-ignore-validation_loss.svg" alt="Last Layer From Scratch Validation Loss">
+
+            <br>
+            <br>
+            <h3>Flowtron Conclusions</h3>
+            <p class="lead">Ultimately, both of our transfer learning models were pretty unusable which was a little disappointing (although the synthesized “speech” is pretty entertaining). We theorize that our dataset wasn’t good enough. Although we were able to get correct transcriptions for each audio clip using the captions we scraped, the audio clips likely had too much background noise due to music and sound effects in the videos. We were unable to find a good way to clean this data (and trying to do so would probably involve another deep learning task anyway, which leads to even more room for error). We learned how important it is to have good, clean data, and how hard it is to find the data you want! It makes sense that we only saw a couple popular datasets being used like LJS and <a href="https://research.google/tools/datasets/libri-tts/" target="_blank">LibriTTS</a>, since it takes a lot of work to create quality data sets like these and they are pretty rare!</p>
+
+            <p class="lead">View our Flowtron Juptyer notebook <a href="https://colab.research.google.com/drive/1_2h6Y7aUXk2b1Vw3100r6T4ZjbW8m9QC?usp=sharing " target="_blank">here!</a></p>
+
         </div>
     </div>
 
