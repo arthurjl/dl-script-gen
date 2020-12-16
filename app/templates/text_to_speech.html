@@ -26,42 +26,35 @@
             <p class="lead">Text-to-Speech synthesis was a completely new area for us! We decided to tackle this challenge in hopes of producing synthesized speech from our generated transcripts in the style of our targeted speakers. So, we researched and tested several different text-to-speech models.</p>
             <p class="lead">Overall, we learned that text-to-speech synthesis generally follows a three part model. First, the text needs to be embedded using an encoder. Then, these embeddings are passed to a synthesizer that infers mel spectrograms from the word embeddings. Since we didn’t have much experience with sound, <a href="https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53" target="_blank">wrapping our heads around the idea of a mel spectrogram was pretty difficult</a>, but in essence, a mel spectrogram encodes signal frequencies from audio over time using the mel scale. Finally, the mel spectrograms are passed through a vocoder, which generates waveforms from the spectrograms, producing audio!</p>
             <p class="lead">Below are the results of our journey!</p>
-        </div>
 
-        <div class="container">
             <br>
             <h2>Experiment 1: <a href="https://github.com/CorentinJ/Real-Time-Voice-Cloning" target="_blank">Real Time Voice Cloning</a></h2>
             <p class="lead">We started by working with CorentinJ’s very popular Real-Time-Voice-Cloning repo. This repository was an implementation of transfer learning for a text-to-speech model. We iterated on the Jupyter notebook in this repository and tried training on clips of our speakers for voice cloning.</p>
             <p class="lead">Initially, we hypothesized that attempting to voice clone using more data would lead to better results. So, we scraped audio from Stuart Reges’s CSE 143 lectures in Winter 2020. Not only was working with these massive .wav files exceptionally slow and memory-consuming (we had 30+ hours of data), but we discovered that this model (and most other models) were optimized to train on short ~10 second clips rather than long chunks of voice.</p>
             <p class="lead">After downsampling a 10 second clip of Stuart’s voice to 48 kHz (to match the pretrained model), we attempted to generate his iconic lecture intro. While the generated voice sounded vaguely like Stuart, the output often had odd silences and white noise interruptions that were distracting. This was a great start, but the speech didn’t sound quite realistic for our liking. Since we had so much more data, we decided to look for ways that we could train a model using more than a 10 second clip to see if we could get improved results.</p>
-            
             <p class="lead">
-                Generated speech from 10 second Stuart clip, downsampled to 48kHz: "Ok, let's go ahead and get started"
+                Generated speech from 10 second Stuart clip, downsampled to 48kHz:
+                <br>
+                "Ok, let's go ahead and get started"
+                <br>
                 <audio controls>
                     <source src="static/audio-examples/cloning-stuart-get-started-48000.wav" type="audio/wav">
                 </audio>
-            </p>
-        </div>
 
-        <div class="container">
             <br>
             <h2>Experiment 2: <a href="https://github.com/r9y9/wavenet_vocoder" target="_blank">WaveNet Vocoder</a></h2>
             <p class="lead">Next, we looked for ways to train our own vocoder. We theorized that if we could get a vocoder fine-tuned on our speaker, we could pass mel spectrograms generated from preexisting models like Tacotron2 and output speech in the style of our speaker.</p>
             <p class="lead">This repository also looked like a good place to start since it was structured to be able to train from a folder containing all .wav files from the targeted speaker. Learning from last time, we split up Stuart’s voice into 10 second chunks.</p>
             <p class="lead">Unfortunately, we never got training working here. We ran into issues with incompatibility with training locally on Windows and Colab due to process spawning. We additionally tried running on attu since this was the only Linux system we had, but encountered issues due to memory limits..</p>
-            
             <p class="lead">
                 View our <a href="https://colab.research.google.com/drive/1ui3X-V-tSxnRG3wnr2VDZ4D_iIVXAJLV?usp=sharing" target="_blank">Wavenet notebook</a> to see our struggles.</h2>
                 <p class="lead">
             </p>
-        </div>
 
-        <div class="container">
             <br>
             <h2>Experiment 3: <a href="https://github.com/NVIDIA/waveglow" target="_blank">WaveGlow</a></h2>
             <p class="lead">We found WaveGlow, which similarly is a vocoder that can synthesize speech from mel spectrograms. We tried running the pretrained models in this repository to synthesize speech from mel spectrograms of Stuart. The model was trained on a different sampling rate, so our output sounded very slow.</p>
             <p class="lead">However, when we attempted to train our own model, we ran into more incompatibility issues with Colab and libraries that the training relies on. Setup is rough :((</p>
-            
             <p class="lead">
                 Here's our <a href="https://colab.research.google.com/drive/1HC6XugC0n61nnzlfRp4VxETf6NRi7pp6?usp=sharing" target="_blank">WaveGlow</a> notebook for more setup fun.</h2>
                 <p class="lead">
