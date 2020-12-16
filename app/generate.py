@@ -59,6 +59,7 @@ def beam_sampling_strategy(sequence_length, beam_width, model, output, hidden, v
 
 
 def generate_language(model, vocab, seed_words, sequence_length,  device=DEVICE, sampling_strategy='max', beam_width=BEAM_WIDTH, temperature=TEMPERATURE):
+    print(sequence_length)
     model.eval()
     with torch.no_grad():
         seed_words_arr = vocab.words_to_array(seed_words)
@@ -122,9 +123,12 @@ def visualize(generated_sentence, activation_values, cell_no):
     html_colors = html_print(''.join([cstr(ti, color=ci) for ti,ci in text_colours]))
     return html_colors
 
-def construct_visualization(activation_values, text, n_visuals):
+def construct_visualization(activation_values, text, cells, n_vis=4):
     result = []
-    for cell_no in [625, 643, 652, 700]:
+    
+    if cells is None:
+        cells = random.sample(range(len(activation_values[0])), n_vis)
+    for cell_no in cells:
         print("Processing cell_no: " + str(cell_no))
         html_colors = visualize(text, activation_values, cell_no)
         cell_result = html_colors.data
@@ -132,9 +136,9 @@ def construct_visualization(activation_values, text, n_visuals):
     return result
 
 def generate_and_visualize(language_model, vocab, seed_words, speech_model, sequence_length=SEQUENCE_LENGTH, device="cpu", 
-                        strategy="sample", beam_width=BEAM_WIDTH, temperature=TEMPERATURE, n_visuals=3):
+                        strategy="sample", beam_width=BEAM_WIDTH, temperature=TEMPERATURE, cells=None, n_vis=4):
     generated_sentence = generate_language(language_model, vocab, seed_words, sequence_length, sampling_strategy=strategy)
     activation_values = generate_activations(language_model, vocab, generated_sentence)
-    visualization = construct_visualization(activation_values, generated_sentence, n_visuals)
+    visualization = construct_visualization(activation_values, generated_sentence, cells, n_vis)
 
     return generated_sentence, visualization

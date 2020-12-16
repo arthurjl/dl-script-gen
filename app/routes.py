@@ -28,7 +28,7 @@ def index():
     data = request.args
     # Generate some text with the data and the audio clip
     if data:
-        text, visualizations = generate_and_visualize(models[data["languageModel"]], vocabs[data["languageModel"]], data["seedWords"], vis_cells[data["languageModel"]], None)
+        text, visualizations = generate_and_visualize(models[data["languageModel"]], vocabs[data["languageModel"]], data["seedWords"], None, cells=vis_cells[data["languageModel"]])
         text = text.split("\n")
         audio = "./static/out289.wav"
         return render_template('index.html', text=text, audio=audio, visualizations=visualizations)
