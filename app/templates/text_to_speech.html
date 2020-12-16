@@ -40,6 +40,7 @@
                 <audio controls>
                     <source src="static/audio-examples/cloning-stuart-get-started-48000.wav" type="audio/wav">
                 </audio>
+            </p> 
 
             <br>
             <h2>Experiment 2: <a href="https://github.com/r9y9/wavenet_vocoder" target="_blank">WaveNet Vocoder</a></h2>
@@ -67,6 +68,23 @@
             <p class="lead">We realized that in order to train this speech synthesis model end-to-end, we needed audio files along with transcribed text of what the speaker was saying. Initially, we were worried that this was a hurdle we wouldn’t be able to overcome, since we weren’t sure how we could find such extensive data sets on the speakers we were interested in. However, we realized that YouTubers that include human transcribed captions in their videos could be a source of this data! .vtt files include timestamps for each caption text, so we were able to parse the caption files and create a dataset of short audio clips from Kurzgesagt along with the corresponding text.</p>
 
             <p class="lead">We finally were able to get a model training, which was super exciting!! We had about 3 hours of Kurzgesagt data, so based on the recommendations in the blog, we decided to work from a pretrained model and try both fine-tuning the last layer and training the last layer from scratch. We started transfer learning from a model trained on the <a href="https://keithito.com/LJ-Speech-Dataset/" target="_blank">LJS dataset</a>.</p>
+
+            <br>
+            <h3>Experiment 4.1: Fine-tuning pretrained Flowtron</h3>
+            <p class="lead">When fine-tuning the model, we saw the validation loss decrease from ~0.9 to 0.32, which seemed initially promising. However, when we ran text-to-speech using our model, we found that the resulting audio was not very impressive. The speech sounded garbled, and more like someone practicing their vowels for the first time than actual words. The speaking voice sounded feminine (since the pretrained model was female voice) and not at all like Kurzgesagt. Upon further investigation, we realized that the loss function utilized negative log likelihood, so in fact these loss values didn’t seem that promising!</p>
+            <p class="lead">
+                Generated speech from our finetuned model after 22.75k iterations:
+                <br>
+                “Oh man, finals week is a little rough.”
+                <br>
+                <audio controls>
+                    <source src="static/audio-examples/flowtron-kurzgesagt-finals-finetune3-model22750.wav" type="audio/wav">
+                </audio>
+            </p> 
+            <p class="lead">Finetuned training loss (negative log likelihood)</p>
+            <img src="static/graphs/flowtron-finetune-training_loss.svg" alt="Flowtron Finetuned Training Loss">
+            <p class="lead">Finetuned validation loss (negative log likelihood)</p>
+            <img src="static/graphs/flowtron-finetune-validation_loss.svg" alt="Flowtron Finetuned Validation Loss">
         </div>
     </div>
 
