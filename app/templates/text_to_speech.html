@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+{% endblock %}
+
+{% block content %}
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="display-3">Seal Scripts</h1>
+      </div>
+    </section>
+
+    <div class="py-5">
+        <div class="container">
+            <h1>Text-to-Speech Synthesis</h1>
+            <p class="lead">Text-to-Speech synthesis was a completely new area for us! We decided to tackle this challenge in hopes of producing synthesized speech from our generated transcripts in the style of our targeted speakers. So, we researched and tested several different text-to-speech models.</p>
+            <p class="lead">Overall, we learned that text-to-speech synthesis generally follows a three part model. First, the text needs to be embedded using an encoder. Then, these embeddings are passed to a synthesizer that infers mel spectrograms from the word embeddings. Since we didn’t have much experience with sound, <a href="https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53" target="_blank">wrapping our heads around the idea of a mel spectrogram was pretty difficult</a>, but in essence, a mel spectrogram encodes signal frequencies from audio over time using the mel scale. Finally, the mel spectrograms are passed through a vocoder, which generates waveforms from the spectrograms, producing audio!</p>
+            <p class="lead">Below are the results of our journey!</p>
+
+            <br>
+            <h2>Experiment 1: <a href="https://github.com/CorentinJ/Real-Time-Voice-Cloning" target="_blank">Real Time Voice Cloning</a></h2>
+            <p class="lead">We started by working with CorentinJ’s very popular Real-Time-Voice-Cloning repo. This repository was an implementation of transfer learning for a text-to-speech model. We iterated on the Jupyter notebook in this repository and tried training on clips of our speakers for voice cloning.</p>
+            <p class="lead">Initially, we hypothesized that attempting to voice clone using more data would lead to better results. So, we scraped audio from Stuart Reges’s CSE 143 lectures in Winter 2020. Not only was working with these massive .wav files exceptionally slow and memory-consuming (we had 30+ hours of data), but we discovered that this model (and most other models) were optimized to train on short ~10 second clips rather than long chunks of voice.</p>
+            <p class="lead">After downsampling a 10 second clip of Stuart’s voice to 48 kHz (to match the pretrained model), we attempted to generate his iconic lecture intro. While the generated voice sounded vaguely like Stuart, the output often had odd silences and white noise interruptions that were distracting. This was a great start, but the speech didn’t sound quite realistic for our liking. Since we had so much more data, we decided to look for ways that we could train a model using more than a 10 second clip to see if we could get improved results.</p>
+            <p class="lead">
+                Generated speech from 10 second Stuart clip, downsampled to 48kHz:
+                <br>
+                "Ok, let's go ahead and get started"
+                <br>
+                <audio controls>
+                    <source src="static/audio-examples/cloning-stuart-get-started-48000.wav" type="audio/wav">
+                </audio>
+            </p> 
+
+            <br>
+            <h2>Experiment 2: <a href="https://github.com/r9y9/wavenet_vocoder" target="_blank">WaveNet Vocoder</a></h2>
+            <p class="lead">Next, we looked for ways to train our own vocoder. We theorized that if we could get a vocoder fine-tuned on our speaker, we could pass mel spectrograms generated from preexisting models like Tacotron2 and output speech in the style of our speaker.</p>
+            <p class="lead">This repository also looked like a good place to start since it was structured to be able to train from a folder containing all .wav files from the targeted speaker. Learning from last time, we split up Stuart’s voice into 10 second chunks.</p>
+            <p class="lead">Unfortunately, we never got training working here. We ran into issues with incompatibility with training locally on Windows and Colab due to process spawning. We additionally tried running on attu since this was the only Linux system we had, but encountered issues due to memory limits..</p>
+            <p class="lead">
+                View our <a href="https://colab.research.google.com/drive/1ui3X-V-tSxnRG3wnr2VDZ4D_iIVXAJLV?usp=sharing" target="_blank">Wavenet notebook</a> to see our struggles.</h2>
+                <p class="lead">
+            </p>
+
+            <br>
+            <h2>Experiment 3: <a href="https://github.com/NVIDIA/waveglow" target="_blank">WaveGlow</a></h2>
+            <p class="lead">We found WaveGlow, which similarly is a vocoder that can synthesize speech from mel spectrograms. We tried running the pretrained models in this repository to synthesize speech from mel spectrograms of Stuart. The model was trained on a different sampling rate, so our output sounded very slow.</p>
+            <p class="lead">However, when we attempted to train our own model, we ran into more incompatibility issues with Colab and libraries that the training relies on. Setup is rough :((</p>
+            <p class="lead">
+                Here's our <a href="https://colab.research.google.com/drive/1HC6XugC0n61nnzlfRp4VxETf6NRi7pp6?usp=sharing" target="_blank">WaveGlow notebook</a> for more setup fun.</h2>
+            </p>
+
+            <br>
+            <h2>Experiment 4: <a href="https://github.com/NVIDIA/flowtron" target="_blank">Flowtron</a></h2>
+            <p class="lead">Finally, we found Flowtron through <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">this blog post</a></h2> and were excited about the discussion of style transfer! Flowtron takes input text, encodes embeddings of these words, and decodes these embeddings to produce mel spectrograms. Then, the mel spectrograms can be decoded into waveforms using vocoders like Waveglow. Since we ran into so many training issues when trying to train a vocoder, we focused on training Flowtron instead and used a pretrained Waveglow model.</p>
+            <!-- TODO: insert image for structure -->
+
+            <p class="lead">Flowtron network structure (excluding include text encoder and gate layer, source <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">here</a>)<img src="static/graphs/flowtron-diagram.png" alt="Flowtron Diagram" style="width:100%"></p>
+
+            <p class="lead">We realized that in order to train this speech synthesis model end-to-end, we needed audio files along with transcribed text of what the speaker was saying. Initially, we were worried that this was a hurdle we wouldn’t be able to overcome, since we weren’t sure how we could find such extensive data sets on the speakers we were interested in. However, we realized that YouTubers that include human transcribed captions in their videos could be a source of this data! .vtt files include timestamps for each caption text, so we were able to parse the caption files and create a dataset of short audio clips from Kurzgesagt along with the corresponding text.</p>
+
+            <p class="lead">We finally were able to get a model training, which was super exciting!! We had about 3 hours of Kurzgesagt data, so based on the recommendations in the blog, we decided to work from a pretrained model and try both fine-tuning the last layer and training the last layer from scratch. We started transfer learning from a model trained on the <a href="https://keithito.com/LJ-Speech-Dataset/" target="_blank">LJS dataset</a>.</p>
+
+            <br>
+            <h3>Experiment 4.1: Fine-tuning pretrained Flowtron</h3>
+            <p class="lead">When fine-tuning the model, we saw the validation loss decrease from ~0.9 to 0.32, which seemed initially promising. However, when we ran text-to-speech using our model, we found that the resulting audio was not very impressive. The speech sounded garbled, and more like someone practicing their vowels for the first time than actual words. The speaking voice sounded feminine (since the pretrained model was female voice) and not at all like Kurzgesagt. Upon further investigation, we realized that the loss function utilized negative log likelihood, so in fact these loss values didn’t seem that promising!</p>
+            <p class="lead">
+                Generated speech from our finetuned model after 22.75k iterations:
+                <br>
+                “Oh man, finals week is a little rough.”
+                <br>
+                <audio controls>
+                    <source src="static/audio-examples/flowtron-kurzgesagt-finals-finetune3-model22750.wav" type="audio/wav">
+                </audio>
+            </p> 
+            <p class="lead">Finetuned training loss (negative log likelihood) vs. Iterations</p>
+            <img src="static/graphs/flowtron-finetune-training_loss.svg" alt="Flowtron Finetuned Training Loss">
+            <br>
+            <br>
+            <p class="lead">Finetuned validation loss (negative log likelihood)  vs. Iterations</p>
+            <img src="static/graphs/flowtron-finetune-validation_loss.svg" alt="Flowtron Finetuned Validation Loss">
+
+            <br>
+            <br>
+            <h3>Experiment 4.2: Training the last layer from scratch</h3>
+            <p class="lead">We next tried training the last layer from scratch. We saw our validation loss initially decrease to -0.81 after ~3.5k iterations which seemed a lot more reasonable! However, again we noticed that the attention visualizations did not look crisp and clear. When we tried synthesizing audio, the speech was much noisier than before and sounded much more raw and unrefined. However, we did notice that the speaker’s voice sounded more masculine, and possibly closer to Kurzgesagt. Additionally, we were able to hear a snippet of coherent words coming through (listen for "finals week" in the audio clip below), unlike the babbling vowels from our previous model.</p>
+            <p class="lead">As we continued training, we saw the validation loss rapidly increase as the model began to overfit. According to Flowtron’s documentation, we should have had enough data to train the model, so we were likely overfitting to noise in our audio.</p>
+            <p class="lead">
+                Generated speech after training the last layer from scratch at 3.25k iterations:
+                <br>
+                “Oh man, finals week is a little rough.”
+                <br>
+                <audio controls>
+                    <source src="static/audio-examples/flowtron-kurzgesagt-finals-ignore1-model3250.wav" type="audio/wav">
+                </audio>
+            </p> 
+            <p class="lead">Last layer from scratch training loss (negative log likelihood) vs. Iterations</p>
+            <img src="static/graphs/flowtron-ignore-training_loss.svg" alt="Layer From Scratch Training Loss">
+            <br>
+            <br>
+            <p class="lead">Last layer from scratch validation loss (negative log likelihood) vs. Iterations</p>
+            <img src="static/graphs/flowtron-ignore-validation_loss.svg" alt="Last Layer From Scratch Validation Loss">
+
+            <br>
+            <br>
+            <h3>Flowtron Conclusions</h3>
+            <p class="lead">Ultimately, both of our transfer learning models were pretty unusable which was a little disappointing (although the synthesized “speech” is pretty entertaining). We theorize that our dataset wasn’t good enough. Although we were able to get correct transcriptions for each audio clip using the captions we scraped, the audio clips likely had too much background noise due to music and sound effects in the videos. We were unable to find a good way to clean this data (and trying to do so would probably involve another deep learning task anyway, which leads to even more room for error). We learned how important it is to have good, clean data, and how hard it is to find the data you want! It makes sense that we only saw a couple popular datasets being used like LJS and <a href="https://research.google/tools/datasets/libri-tts/" target="_blank">LibriTTS</a>, since it takes a lot of work to create quality data sets like these and they are pretty rare!</p>
+
+            <p class="lead">View our Flowtron Juptyer notebook <a href="https://colab.research.google.com/drive/1_2h6Y7aUXk2b1Vw3100r6T4ZjbW8m9QC?usp=sharing " target="_blank">here!</a></p>
+
+        </div>
+    </div>
+
+</main>
+
+<script>
+    window.addEventListener('scroll',function() {
+        //When scroll change, you save it on localStorage.
+        localStorage.setItem('scrollPosition',window.scrollY);
+    },false);
+
+    window.addEventListener('load',function() {
+        if(localStorage.getItem('scrollPosition') !== null)
+           window.scrollTo(0, localStorage.getItem('scrollPosition'));
+    },false);
+</script>
+
+<script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
+{% endblock %}
