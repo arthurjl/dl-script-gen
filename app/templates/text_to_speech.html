@@ -57,8 +57,16 @@
             <p class="lead">However, when we attempted to train our own model, we ran into more incompatibility issues with Colab and libraries that the training relies on. Setup is rough :((</p>
             <p class="lead">
                 Here's our <a href="https://colab.research.google.com/drive/1HC6XugC0n61nnzlfRp4VxETf6NRi7pp6?usp=sharing" target="_blank">WaveGlow</a> notebook for more setup fun.</h2>
-                <p class="lead">
             </p>
+
+            <br>
+            <h2>Experiment 4: <a href="https://github.com/NVIDIA/flowtron" target="_blank">Flowtron</a></h2>
+            <p class="lead">Finally, we found Flowtron through <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">this blog post</a></h2> and were excited about the discussion of style transfer! Flowtron takes input text, encodes embeddings of these words, and decodes these embeddings to produce mel spectrograms. Then, the mel spectrograms can be decoded into waveforms using vocoders like Waveglow. Since we ran into so many training issues when trying to train a vocoder, we focused on training Flowtron instead and used a pretrained Waveglow model.</p>
+            <!-- TODO: insert image for structure -->
+
+            <p class="lead">We realized that in order to train this speech synthesis model end-to-end, we needed audio files along with transcribed text of what the speaker was saying. Initially, we were worried that this was a hurdle we wouldn’t be able to overcome, since we weren’t sure how we could find such extensive data sets on the speakers we were interested in. However, we realized that YouTubers that include human transcribed captions in their videos could be a source of this data! .vtt files include timestamps for each caption text, so we were able to parse the caption files and create a dataset of short audio clips from Kurzgesagt along with the corresponding text.</p>
+
+            <p class="lead">We finally were able to get a model training, which was super exciting!! We had about 3 hours of Kurzgesagt data, so based on the recommendations in the blog, we decided to work from a pretrained model and try both fine-tuning the last layer and training the last layer from scratch. We started transfer learning from a model trained on the <a href="https://keithito.com/LJ-Speech-Dataset/" target="_blank">LJS dataset</a>.</p>
         </div>
     </div>
 
