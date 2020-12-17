@@ -1,5 +1,5 @@
 # Check out the site here!
-(https://seal-scripts.herokuapp.com/)[https://seal-scripts.herokuapp.com/]
+https://seal-scripts.herokuapp.com/
 
 # Getting started if you're a DL fool
 Specifically, Daniel or Taylor or Arthur
