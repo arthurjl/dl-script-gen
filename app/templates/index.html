@@ -210,7 +210,8 @@
                                     <source src="static/audio-examples/cloning-stuart-get-started-48000.wav" type="audio/wav">
                                 </audio>
                             </p> 
-                
+                            <p class="lead">Check out our <a href="https://colab.research.google.com/drive/1X5Xf-liLXdl83mb7RE54Wb_6RgmfO1ys?authuser=3#scrollTo=PHenc_Bdh9yh" target="_blank">voice cloning notebook</a> to try it out for yourself!</h2></p>
+                                
                             <br>
                             <h2>Experiment 2: <a href="https://github.com/r9y9/wavenet_vocoder" target="_blank">WaveNet Vocoder</a></h2>
                             <p class="lead">Next, we looked for ways to train our own vocoder. We theorized that if we could get a vocoder fine-tuned on our speaker, we could pass mel spectrograms generated from preexisting models like Tacotron2 and output speech in the style of our speaker.</p>
@@ -232,7 +233,6 @@
                             <br>
                             <h2>Experiment 4: <a href="https://github.com/NVIDIA/flowtron" target="_blank">Flowtron</a></h2>
                             <p class="lead">Finally, we found Flowtron through <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">this blog post</a></h2> and were excited about the discussion of style transfer! Flowtron takes input text, encodes embeddings of these words, and decodes these embeddings to produce mel spectrograms. Then, the mel spectrograms can be decoded into waveforms using vocoders like Waveglow. Since we ran into so many training issues when trying to train a vocoder, we focused on training Flowtron instead and used a pretrained Waveglow model.</p>
-                            <!-- TODO: insert image for structure -->
                 
                             <p class="lead">Flowtron network structure (excluding include text encoder and gate layer, source <a href="https://developer.nvidia.com/blog/training-your-own-voice-font-using-flowtron/" target="_blank">here</a>)<img src="static/graphs/flowtron-diagram.png" alt="Flowtron Diagram" style="width:100%"></p>
                 
