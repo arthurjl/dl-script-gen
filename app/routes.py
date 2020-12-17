@@ -7,7 +7,7 @@ from app import app
 def index():
     data = request.args
     # Generate some text with the data and the audio clip
-    if data:
+    if data and data["seedWords"]:
         text_data = {"seedWords": data["seedWords"], "model": data["languageModel"]}
         res = requests.post("https://63332a7ef8f3.ngrok.io/generateText", data=text_data)
         import sys

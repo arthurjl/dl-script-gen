@@ -35,7 +35,7 @@
     
             <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-demo" role="tabpanel" aria-labelledby="v-pills-demo-tab">
+                    <div class="tab-pane fade" id="v-pills-demo" role="tabpanel" aria-labelledby="v-pills-demo-tab">
                         <div>
                             <p class="lead">
                                 Now that the quarter is almost over... aren't you going to miss listening to all your professors lecture? No? Maybe you've just watched all the Youtube videos
@@ -150,7 +150,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-dataset" role="tabpanel" aria-labelledby="v-pills-dataset-tab">
+                    <div class="tab-pane fade show active" id="v-pills-dataset" role="tabpanel" aria-labelledby="v-pills-dataset-tab">
                         <div>
                             <h3>Dataset Creation</h3>
                             <p class="lead">The fun of this project comes from being able to style both the text generation and speech synthesis to people that we were familiar with. So, we collected this data online
@@ -166,28 +166,294 @@
                                         </tr>
                                         <tbody>
                                             <tr>
-                                                <td>Stuart Reges</td>
-                                                <td>Idk how we got his past lectures</td>
-                                                <td>Not sure</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Casey Neistat</td>
+                                                <td>Casey Neistat Transcripts</td>
                                                 <td>Youtube</td>
-                                                <td>how big</td>
+                                                <td>1 mb</td>
                                             </tr>
                                             <tr>
-                                                <td>Planet Earth</td>
-                                                <td>Subslikescript</td>
-                                                <td>these were</td>
+                                                <td>Mark Rober Transcripts</td>
+                                                <td>YouTube</td>
+                                                <td>.75 mb</td>
+                                            </tr>
+                                            <tr>
+                                                <td>PBS Nova Documentaries</td>
+                                                <td><a href="https://www.pbs.org/wgbh/nova/transcripts" target="_blank">PBS site</a></td>
+                                                <td>9 mb</td>
+                                            </tr>
+                                            <tr>
+                                                <td>The Office Transcript</td>
+                                                <td><a href="https://github.com/brianbuie/the-office" target="_blank">GitHub</a></td>
+                                                <td>4 mb</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Stuart Reges Audio</td>
+                                                <td>Panopto Lectures</td>
+                                                <td>>30 hrs</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kurzgesagt</td>
+                                                <td>YouTube</td>
+                                                <td>3 hrs</td>
                                             </tr>
                                         </tbody>
                                     </thead>
                                 </table>
-                            </div>    
+                            </div>
+                            <h3>Text Datasets</h3>
+                            <h4>YouTube</h4>
+                            <p class="lead">
+                                We initially wanted to make parodies of popular YouTube vloggers, so we needed to get transcripts from their videos. Using an existing python library, we could download all the subs of all the videos in a playlist, and we could simply use the “uploads” playlist to collect all of it. We also wrote <a href="https://drive.google.com/file/d/1EUgNoaEzcn-aGrVyOqM85s5Npi3dR35g/view?usp=sharing" target="_blank">a script</a> to clean up these .vtt files into a .txt file for our models to utilize.
+                            </p>
+                            <p class="lead">
+                                Unfortunately, we noticed that they only had auto-generated captions, and so this significantly reduced the quality of our dataset. Additionally, the quantity of these captions was not very impressive (<< 10 mb), so we looked into other sources of data.
+                            </p>
+                            <h4>Other Datasets
+                            </h4>
+                            <p class="lead">
+                                Since the YouTube datasets were not sufficient enough, we also scraped data from other sources. We were able to utilize <a href="https://github.com/brianbuie/the-office" target="_blank">The Office json clips github here</a>, and then we <a href="https://drive.google.com/file/d/1PB06JIlFz5z380JYDRIfbnbA-WD5KWCI/view?usp=sharing" target="_blank">wrote a script</a> to convert the json files into a singular text file as well.
+                            </p>
+                            <p class="lead">
+                                Another source of data was the <a href="https://www.pbs.org/wgbh/nova/transcripts" target="_blank">PBS NOVA transcripts here</a>. We wrote a <a href="https://drive.google.com/file/d/1nbzp8Z-5UMqoP7YGUgE8_4sej_MpOP5f/view?usp=sharing" target="_blank">web crawler</a> to scrape and clean these and also created individual files for specific domains of documentaries (ex: nature)
+                            </p>
+                            <br>
+                            <h3>Audio Datasets</h3>
+                            <h4>Stuart Reges</h4>
+                            <p class="lead">
+                                We thought it would be fun to have Stuart Reges’s voice read our transcripts since he’s such an iconic voice to many CS students at UW!
+                            </p>
+                            <p class="lead">
+                                We scraped all the audio from the CSE 143 lectures in Winter 2020 from Panopto. This ended up being over 30 hours of data! Unfortunately, we weren’t able to train extensively on this full dataset since we didn’t have text transcriptions, and only ended up using short clips for voice cloning. We also hypothesize that the quality of the data might have been degraded by pauses in the lecture when students were asking questions, etc. 
+                            </p>
+                            <p class="lead">
+                                <a href="https://colab.research.google.com/drive/1Rm7aSwkkpSLNcKL2M5kZsP74OLX_WEAU?usp=sharing" target="_blank">
+                                    Link to notebook
+                                </a>
+                            </p>
+
+                            <h4>Kurzgesagt</h4>
+                            <p class="lead">
+                                We picked Kurzgesagt because we love their videos, and they have human generated captions! These were crucial in order to have good transcriptions for each clip to train on. 
+                            </p>
+                            <p class="lead">
+                                We scraped a small subset of their videos (about 3 hours and 17 minutes total), parsed the subtitle files, and used ffmpeg to create clips cut at the caption timestamps.
+                            </p>
+                            <p class="lead">
+                                We also attempted to scrape all their videos (about 16 hours, 36 minutes total). Our first mistake was putting all our clips in one folder, which led to Google Drive timeout issues. After splitting up the clips into multiple folders, we solved the data loader issues, but encountered runtime errors while training likely due to malformed data. Unfortunately we were never quite able to debug these, so we stuck to our original sample size. 
+                            </p>
+                            <p class="lead">
+                                <a href="https://colab.research.google.com/drive/1I-wbH6GeaSooRrgOWzupAg-6zD0nK807?usp=sharing" target="_blank">
+                                    Link to notebook
+                                </a>
                             </p>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="v-pills-language" role="tabpanel" aria-labelledby="v-pills-language-tab"></div>
+                    <div class="tab-pane fade" id="v-pills-language" role="tabpanel" aria-labelledby="v-pills-language-tab">
+                        <div>
+                            <h1>TextGeneration</h1>
+                            <p class="lead">We were largely inspired by Kaparthy’s article here:<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank">"The Unreasonable Effectiveness of Recurrent Neural Networks"</a>, which used models to generate text matching the style and information of existing data. With a title like that, we were hoping to reproduce and expand on the quality of the results that he had proclaimed.
+                            </p>
+                            <h2>Building from Scratch</h2>
+                            <p class="lead">Having collected various text datasets that were roughly the same size as the ones that Kaparthy utilized (~10 mb), we set out to train our own models.</p>
+                            <p class="lead">For training our models, we <a href="https://colab.research.google.com/drive/1WI-wbSyJ-d6I5YAJJCu2BiFqIxqFLN_l?usp=sharing", target="_blank">created a pipeline</a> that would allow us to easily swap in different model architectures, different datasets, and save both results and checkpoints for training. We also decided to focus on utilizing smaller levels of data input (characters) since we had previously tried to utilize a word-level approach in a previous assignment and found that it did not perform very well. We hypothesize that this is primarily due to working with a smaller dataset. Since we expected to be similarly constrained for this project as we were gathering fairly niche domains of input data, we chose to explore other possibilities of improvement instead of character input. Overall, here are some of the better performing models that we chose to utilize and are also hooked up into the backend here.</p>
+                            <pre><code>
+ScriptGenModelNLayer(
+  (encoder): Embedding(111, 512)
+  (lstm): LSTM(512, 512, num_layers=2, batch_first=True)
+  (decoder): Linear(in_features=512, out_features=111, bias=True)
+)
+seq length: 100, batch_size: 64, feat_size: 512, test_batch_size: 256, lr: 0.002, decay: 0.0005
+office_transcript_end_scene_linebreak
+                            </code></pre>
+                            <pre><code>
+ScriptGenModelNLayerDropout(
+  (encoder): Embedding(102, 512)
+  (lstm): LSTM(512, 512, num_layers=2, batch_first=True, dropout=0.5)
+  (decoder): Linear(in_features=512, out_features=102, bias=True)
+)
+seq length: 100, batch_size: 64, feat_size: 512, test_batch_size: 256, lr: 0.0025, decay: 0.0005
+nova_nature_transcripts
+                            </code></pre>
+                            <p class="lead">
+                                We found that these models would pick up easily on the simplest levels of semantic structure of the input data such as words, the spacing, and the line breaks which is quite impressive considering that the model is generating and learning these sentences at the character level.
+                            </p>
+                            <pre><code>
+Epoch 1: In the wild...
+e the the sot forit itis ict ats of the tope can and the the byou thens te the to allike ar ther and bout the weles got mandist and it it yo uce cor and the melcew the the theen it tit's takit that th
+                            </code></pre>
+                            <pre><code>
+Epoch 14: In the wild...
+be
+the like the link he are the with room mark what
+it was the supress they hurded on the distance what means to the dolage all start people we can at the next were all the process and
+then you have
+                            </code></pre>
+                            <p class="lead">
+                                We see that in just 14 epochs, the model has learned valid words that it can create with characters.
+                            </p>
+                            <p class="lead">
+                                Some things we tried to improve this was tinkering with the learning rate, changing the sequence length, adding more layers, and also introducing dropout. However, the models still had difficulty picking up more nuanced semantic aspects of the language. For the models that we had trained, we found that the testing accuracy was often stuck at the 60% range. Since accuracy measurement of text generation is still a very imprecise task, we would also print out periodic samples to see if the results improved by our human standards of language.
+                            </p>
+                            <p class="lead">
+                                We saved the plots from each of our models, and most of them would taper around this 60% accuracy. Here are the test perplexity and training loss plots for the model we trained on The Office.
+                            </p>
+                            <img src="static/graphs/test_perplexity.png" alt="Test Perplexity for Office 3.1 Model" style="width:100%">
+                            <img src="static/graphs/train_loss.png" alt="Train Loss for Office 3.1 Model" style="width:100%">
+                            <p class="lead">
+                                Something else that we got to investigate was the digging inside the model to look at the weight activations. While the majority of the weights were pretty randomly scattered, we did find certain weights that we could attach some sort of meaning to. For instance, cell 625 would be active for the the dialogue part of the generated output. 
+                            </p>
+                            <img src="static/graphs/office3_1_activations.png" alt="Train Loss for Office 3.1 Model" style="width:100%">
+                            <br>
+                            <p class="lead">
+                                Another avenue we were curious about was using GAN’s to allow the model to generate text that could be passed off as original data. We did not get to try this for ourselves, and looking into the literature such as <a href="https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1174/reports/2737434.pdf", target="_blank">this paper</a>, this direction did not seem as auspicious and is quite finicky to pull off. (GAN’s alone are already very difficult to reproduce).
+                            </p>
+                            <br>
+                            <h2>The Alternative: <a href="https://towardsdatascience.com/fine-tuning-gpt2-on-colab-gpu-for-free-340468c92ed" target="_blank">Fine-tuning GPT2</a></h2>
+                            </p>
+                            <p class="lead">
+                                The current trend in text-generation such as seen in GPT3 and Turing NLG is to simply drastically increase the number of parameters and input data. The usage of attention and transformers is also a central element of these more powerful models, and we obviously could not emulate the work here from scratch. In fact, even the transformer approach instead of an LSTM is hard to justify since this technique shines best on larger datasets. So instead, we fine tuned an available GPT2 model on our small datasets. We saved some of the models that we had tuned <a href="https://drive.google.com/drive/folders/1NKta8Fop8oTwiK8lJHVVefj5GpNfRT7U?usp=sharing" target="_blank">here</a>, but due to the large size and computation nature, you will probably have to run it yourself on collab or on a GPU.
+                            </p>
+                            <p class="lead">
+                                Here are some samples of GPT2 trained fine-tuned on different datasets.
+                            </p>
+                            <pre style="max-height: 30vh">Trained on the PBS documentaries. <a href="https://drive.google.com/file/d/1BanqHVe42rwemqCMl5EXi1mILKGduMPi/view?usp=sharing" target="_blank">(nova_ALL_transcripts.txt)</a> <code>
+Because the 1972 Chevy Avalanche was one of the most expensive cars in the world, it was the perfect time to get into auto collecting, because the Avalanche was already on its way to becoming the most expensive car in the world, a testament to the power and luxury that went with a car that. Chevrolet was in a tough position. After all, the Avalanche was a commercial success, a big hit with the public and a huge risk. But it was the Avalanche that kept them coming back.
+ALEX'S MOM: I don't want her alive. I don't want her alive.
+__: When they let her go, Alexander got a whole lot of shit done. Completely destroyed. Everything. Everything. It was like, they never thought of a way that they could get out of this.
+__: I don't want her alive. I don't want her alive. I think she was taken advantage of. You know, she was a victim.
+__: She had all the hallmarks of a victim. She had—That's the thing, we're going to show you in a second.
+__: The hallmarks of a victim.
+__: Lift, sink, free, dead center.
+__: Lift, sink, free, dead center.
+__: Lift, sink, free, dead center.
+__: Lift, sink, free, dead center.
+__: Lift, sink, free, dead center.
+__: Lift, sink, free, dead center.
+__: All right. We're going to take a left, and we're going to free, dead center.
+__: We only know we've got one chance here.
+__: All right. We'll take a left, and we're going to free, dead center.
+__: We've got one chance here.
+__: All right. We've got one chance here.
+__: All right, now we have to get into the throttle.
+__: All right. We've got to free, dead center.
+__: It's a hell of a turn. We pull out, and we've got two more laps to go.
+__: Four laps, two laps, dead center.
+__: That was a snap. We picked up a little corner here and there. It was just a matter of, we had enough here to keep the little guy from getting into it, and it worked out fine.
+__: Let's see what we can do.
+__: Four laps, two laps, dead center.
+__: That was a snap. We picked up the little corner here and there. It was just a matter of, we had enough here to keep the little guy from getting into it, and it worked out fine.
+__: Four laps, two laps, dead center.
+__: That was a snap. We pulled out, we've got two laps here and there to go.
+__: Look at that.
+__: That was a snap. We pulled out. It worked out great.
+__: Let's see if we can corner and get the car into the corner.
+__: Look at that.
+__: That was perfect.
+__: Let's make it.
+__: That was perfect.
+__: Let's make it.
+__: Yay! (laughter)
+__: We've got the throttle up and we've got the car in the corner.
+__: All right. Let's get out there, and if we get by at all costs, then we should be able to—We've got to make it two cornering corners now, otherwise it's going to be a long wait. (laughter)
+__: Wait a minute.
+__: Wait a minute.
+__: We could corner, we could—
+__: We could corner.
+__: We could corner.
+__: We could corner.
+__: Let's make it two cornering corners.
+__: Yay! (laughter)
+__: We're going to make it two cornering corners.
+__: That was perfect.
+__: That was perfect.
+__: Let's make it.
+__: That's the power.
+__: That was perfect. That was the confidence. That was the confidence of, you know, 'cause I know that no other car driver has won that kind of margin before. No other driver has won that kind of a margin in any of the series where we have to go underneath it to make a corner.
+__: Oh-ah! (laughter)
+__: That was absolutely perfect.
+__: Oh-ah! (laughter)
+__: That was perfect.
+__: That was perfect.
+__: Let's make it.
+__: That's all we have left.
+__: Three laps.
+__: That was perfect.
+NARRATOR: The next race
+                            </code></pre>
+                            <pre style="max-height: 30vh">Trained on Mark Rober<a href="https://drive.google.com/file/d/1qTCOlxIG9tgYaP8g92O7i9CGph2qIQf4/view?usp=sharing" target="_blank">(cleaned_mark_rober_linebreak.txt)</a>
+poverty and we've been using this to our advantage because it was a perfect fit, it's sort of the
+Lightweight Standard from Last mile, and it weighs in at just under six ounces and it has a capacity of
+260 grams. That's less than the two or three I used, but it does help us with some important panel
+ingrations since we utilize them as standard
+So with last mile's super smart striker system, we don't really need to ask the battery
+person to fill up a cloud and the battery automatically goes away after a couple minutes
+But if we need to charge something else, that charge is completely free and it simply needs to be on like 40% charge
+So that's basically what I'm showing here, if I can fill up 40% charge with a little Rain de Whip and then there's no need to go to the store
+We can simply rent a full charge port from Amazon for just over ten bucks and fill it with unlimited Rain de Wines Rain Guard
+And then when we're ready to charge, we can simply go to setup and then use the magic of the Internet
+to do exactly that, all right, so we've established Rain de Wines Rain Guard has 24 hours pre-filled order
+I'm going to show you what it's like to actually get some
+food for thought. First I'm going to demonstrate how to create a single serving
+per week in moderation with no meat attached. And that provides us with some time to think
+Before we get into this sciencey kind of
+Scientifically we need to establish a number of principles so first of all
+that's not proper diet is a fake scientific method
+There's food in there that's artificial in taste or smell or taste
+There's test tubes or something similar you name it
+As long as you take these things as scientists
+You're just trying to do science
+like all the other people's babies these days
+It's convenient easy to stick in the car
+You have no idea when your food will actually be in the tube
+So what the heck does this all mean? Basically what does this all mean if you don't take these things as scientists
+Take-Home Lane Bea is wrong. The science is still pretty solid
+Not only is there food in this tube, but we have artificial sweetener
+Which is basically what is in this packet
+And this leaves us no time to do our scientific method and to figure out what
+All of these guys are eating is a waste of food and I know you're like
+I totally get the point of the grocery store
+But it's a waste of money they're putting food on this shelf for
+Free which in hindsight probably would have been better spent adding
+Sound effects perhaps? Maybe in hindsight probably would have been better spent
+Removing parasites from fresh food that haven't evolved much in 5 million years because
+They're dead so they can't pass on to your gut the nutrients it took to make your
+Hungry PA is a gross overreaction but parasites aren't that hard to catch and it's easy to eat
+So while I wasn't in this for the science
+I was in this because it looked as if someone was intentionally eating a piece of food that wasn't their own food
+And I wanted to test if this was a waste of money
+The answer's a clear sell and I walk out the store
+To get a refund if you just want to skip the first three checkout line by a penny
+And then there's like two minutes of checkout in the middle
+I still think this is a very good buy I
+It's really simple
+1.5 stars out of 5 stars out of 5
+I haven't tried this yet but maybe in hindsight
+You know I didn't know this would happen this fast this could be a problem because some restaurants have
+Tiny plates on each side that are covered in food coloring to help keep the front
+Car from reflecting the Sun the challenge here is as simple as adding extra calories or salt or
+Phosphorus to the bottom of the plate
+So let's do a little experiment to see how much higher the
+calories or calories that food actually contains so I've got three samples
+I'm going to take right now to my neighbor's party and just to prove how low you can go
+I'm going to add two cups of red wine per sample
+to the bottom of the six-ounce bottle and then I'm going to assume
+that there's a 50/50 chance that the sample will be too hot
+I'm just gonna add a little extra liquid now that the samples have been absorbed
+it's time to see what happens
+The first thing I'm gonna do is I'm gonna pour this out in two drops
+the bottle should still be sparkling but I'm gonna set a timer to
+Measure 12 o'clock but now I'm gonna add two cups of red
+Reservoir fluid per sample
+So that should take about 15 minutes so it's really
+                            </code></pre>
+                            <p class="lead">
+                                It was interesting to contrast the results of GPT2 with those of our own models. Very clearly, the GPT2 model had a better grasp of the english language, but we noted that training too long on the dataset could cause the model to simply memorize entire lines of text. Also, if the seed words were very outside the domain of our dataset, GPT2 would sometimes generate text using its previous knowledge instead of matching the data that we had given it.
+                            </p>
+                            <h2>Some remarks</h2>
+                            <p class="lead">
+                                In summary, we definitely won't be challenging the dominance of giant attention based transformer networks anytime soon. Just curating and training on what seemed like would be a large dataset (ex: documentary transcripts) was a very tedious and time-consuming task. Instead, utilizing these existing models and fine-tuning produced the best results. Nonetheless, for this simplistic model, it is quite impressive how quickly it can pick up on these small cues. Additionally, there are advantages of having a smaller model when used in a practical deployment situation.
+                            </p>
+                        </div>
+                    </div>
 
                     <div class="tab-pane fade" id="v-pills-speech" role="tabpanel" aria-labelledby="v-pills-speech-tab">
                         <div>
