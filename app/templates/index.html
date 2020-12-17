@@ -55,13 +55,13 @@
                                     <div class="col">
                                         <p class="lead">Text Generator</p>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="languageModel" id="stuartReges" value="stuartReges">
-                                            <label class="form-check-label" for="stuartReges">
-                                              Stuart Reges Lectures
+                                            <input class="form-check-input" type="radio" name="languageModel" id="markRober" value="mark">
+                                            <label class="form-check-label" for="markRober">
+                                              Mark Rober
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="languageModel" id="caseyNeistat" value="caseyNeistat">
+                                            <input class="form-check-input" type="radio" name="languageModel" id="caseyNeistat" value="casey">
                                             <label class="form-check-label" for="caseyNeistat">
                                               Casey Neistat Vlogs
                                             </label>
@@ -70,6 +70,18 @@
                                             <input class="form-check-input" type="radio" name="languageModel" id="office" value="office">
                                             <label class="form-check-label" for="office">
                                               The Office
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="languageModel" id="documentary" value="documentary">
+                                            <label class="form-check-label" for="documentary">
+                                              PBS Documentaries
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="languageModel" id="nature" value="nature">
+                                            <label class="form-check-label" for="nature">
+                                              Nature Documentary
                                             </label>
                                         </div>
                                     </div>
@@ -122,7 +134,7 @@
                                     Cell #{{ visualization[0] }}
                                 </p>
                                 <p class="lead">
-                                    {{ visualization[1] }}
+                                    {{ visualization[1]|safe}}
                                 </p>
                                 {% endfor %}
                             {% endif %}
@@ -287,7 +299,7 @@
 
 </main>
 
-<!-- <script>
+<script>
     window.addEventListener('scroll',function() {
         //When scroll change, you save it on localStorage.
         localStorage.setItem('scrollPosition',window.scrollY);
@@ -297,7 +309,7 @@
         if(localStorage.getItem('scrollPosition') !== null)
            window.scrollTo(0, localStorage.getItem('scrollPosition'));
     },false);
-</script> -->
+</script>
 
 <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
 {% endblock %}
