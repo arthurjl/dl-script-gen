@@ -2,7 +2,7 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
 import numpy as np
 
-model_location = './app/models/output'
+model_location = '../models/output'
 device = 'cpu'
 
 tokenizer = GPT2Tokenizer.from_pretrained(model_location)
@@ -31,5 +31,5 @@ def choose_from_top(probs, n=5):
     token_id = ind[choice][0]
     return int(token_id)
 
-generated_text = generate("My office is in ")
+generated_text = generate("My office is in ", length=50)
 print(generated_text)
