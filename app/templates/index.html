@@ -146,7 +146,7 @@
                     </div>
                     <div class="tab-pane fade" id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
                         <div>
-                            <h2>Hi!</h2>
+                            <h1>Hi!</h1>
                             <p class="lead">Welcome to seal-scripts, our AU 2020 DL project!</p>
                             <p class="lead">Well, don't take it from us, take it from Stuart Reges</p>
                             <audio controls>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="tab-pane fade" id="v-pills-dataset" role="tabpanel" aria-labelledby="v-pills-dataset-tab">
                         <div>
-                            <h3>Dataset Creation</h3>
+                            <h1>Dataset Creation</h1>
                             <p class="lead">The fun of this project comes from being able to style both the text generation and speech synthesis to people that we were familiar with. So, we collected this data online
                                 from documentaries, Youtube, and online courseware. Sometimes, it was difficult to ensure that the transcripts of the videos we found were high quality, this was especially true
                                 when we used auto-generated English captions from Youtube videos. All in all, we created a few datasets listed below:
@@ -215,16 +215,15 @@
                                     </thead>
                                 </table>
                             </div>
-                            <h3>Text Datasets</h3>
-                            <h4>YouTube</h4>
+                            <h2>Text Datasets</h2>
+                            <h3>YouTube</h3>
                             <p class="lead">
                                 We initially wanted to make parodies of popular YouTube vloggers, so we needed to get transcripts from their videos. Using an existing python library, we could download all the subs of all the videos in a playlist, and we could simply use the “uploads” playlist to collect all of it. We also wrote <a href="https://drive.google.com/file/d/1EUgNoaEzcn-aGrVyOqM85s5Npi3dR35g/view?usp=sharing" target="_blank">a script</a> to clean up these .vtt files into a .txt file for our models to utilize.
                             </p>
                             <p class="lead">
                                 Unfortunately, we noticed that they only had auto-generated captions, and so this significantly reduced the quality of our dataset. Additionally, the quantity of these captions was not very impressive (<< 10 mb), so we looked into other sources of data.
                             </p>
-                            <h4>Other Datasets
-                            </h4>
+                            <h3>Other Datasets</h3>
                             <p class="lead">
                                 Since the YouTube datasets were not sufficient enough, we also scraped data from other sources. We were able to utilize <a href="https://github.com/brianbuie/the-office" target="_blank">The Office json clips github here</a>, and then we <a href="https://drive.google.com/file/d/1PB06JIlFz5z380JYDRIfbnbA-WD5KWCI/view?usp=sharing" target="_blank">wrote a script</a> to convert the json files into a singular text file as well.
                             </p>
@@ -232,8 +231,8 @@
                                 Another source of data was the <a href="https://www.pbs.org/wgbh/nova/transcripts" target="_blank">PBS NOVA transcripts here</a>. We wrote a <a href="https://drive.google.com/file/d/1nbzp8Z-5UMqoP7YGUgE8_4sej_MpOP5f/view?usp=sharing" target="_blank">web crawler</a> to scrape and clean these and also created individual files for specific domains of documentaries (ex: nature)
                             </p>
                             <br>
-                            <h3>Audio Datasets</h3>
-                            <h4>Stuart Reges</h4>
+                            <h2>Audio Datasets</h2>
+                            <h3>Stuart Reges</h3>
                             <p class="lead">
                                 We thought it would be fun to have Stuart Reges’s voice read our transcripts since he’s such an iconic voice to many CS students at UW!
                             </p>
@@ -246,7 +245,7 @@
                                 </a>
                             </p>
 
-                            <h4>Kurzgesagt</h4>
+                            <h3>Kurzgesagt</h3>
                             <p class="lead">
                                 We picked Kurzgesagt because we love their videos, and they have human generated captions! These were crucial in order to have good transcriptions for each clip to train on. 
                             </p>
