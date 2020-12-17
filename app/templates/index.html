@@ -116,7 +116,7 @@
                                     <p class="lead">{{ p }}</p>
                                 {% endfor %}
                             {% endif %}
-                    
+<!--                     
                             {% if audio %}
                                 <h3>Audio Reading</h3>
                                 <p class="lead">
@@ -124,7 +124,7 @@
                                         <source src="{{ audio }}" type="audio/wav">
                                     </audio>
                                 </p>
-                            {% endif %}
+                            {% endif %} -->
                     
                             {% if visualizations %}
                                 <h3>
@@ -256,7 +256,7 @@
                     <div class="tab-pane fade" id="v-pills-language" role="tabpanel" aria-labelledby="v-pills-language-tab">
                         <div>
                             <h1>Text Generation</h1>
-                            <p class="lead">We were largely inspired by Kaparthy’s article here:<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank">"The Unreasonable Effectiveness of Recurrent Neural Networks"</a>, which used models to generate text matching the style and information of existing data. With a title like that, we were hoping to reproduce and expand on the quality of the results that he had proclaimed.
+                            <p class="lead">We were largely inspired by Kaparthy’s article here: <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank">"The Unreasonable Effectiveness of Recurrent Neural Networks"</a>, which used models to generate text matching the style and information of existing data. With a title like that, we were hoping to reproduce and expand on the quality of the results that he had proclaimed.
                             </p>
                             <h2>Building from Scratch</h2>
                             <p class="lead">Having collected various text datasets that were roughly the same size as the ones that Kaparthy utilized (~10 mb), we set out to train our own models.</p>
