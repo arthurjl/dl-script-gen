@@ -147,8 +147,8 @@
                     <div class="tab-pane fade" id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
                         <div>
                             <h1>Hi!</h1>
-                            <p class="lead">Welcome to seal-scripts, our AU 2020 DL project!</p>
-                            <p class="lead">Well, don't take it from us, take it from Stuart Reges</p>
+                            <p class="lead">Welcome to seal-scripts, our AU 2020 Deep Learning project!</p>
+                            <p class="lead">Well, don't take it from us, take it from Stuart Reges:</p>
                             <audio controls>
                                 <source src="static/audio-examples/seal-scripts-intro.wav" type="audio/wav">
                             </audio>
@@ -183,7 +183,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>Casey Neistat Transcripts</td>
-                                                <td>Youtube</td>
+                                                <td>YouTube</td>
                                                 <td>1 mb</td>
                                             </tr>
                                             <tr>
@@ -237,12 +237,7 @@
                                 We thought it would be fun to have Stuart Reges’s voice read our transcripts since he’s such an iconic voice to many CS students at UW!
                             </p>
                             <p class="lead">
-                                We scraped all the audio from the CSE 143 lectures in Winter 2020 from Panopto. This ended up being over 30 hours of data! Unfortunately, we weren’t able to train extensively on this full dataset since we didn’t have text transcriptions, and only ended up using short clips for voice cloning. We also hypothesize that the quality of the data might have been degraded by pauses in the lecture when students were asking questions, etc. 
-                            </p>
-                            <p class="lead">
-                                <a href="https://colab.research.google.com/drive/1Rm7aSwkkpSLNcKL2M5kZsP74OLX_WEAU?usp=sharing" target="_blank">
-                                    Link to notebook
-                                </a>
+                                We <a href="https://colab.research.google.com/drive/1Rm7aSwkkpSLNcKL2M5kZsP74OLX_WEAU?usp=sharing" target="_blank">scraped all the audio</a> from the CSE 143 lectures in Winter 2020 from Panopto. This ended up being over 30 hours of data! Unfortunately, we weren’t able to train extensively on this full dataset since we didn’t have text transcriptions, and only ended up using short clips for voice cloning. We also hypothesize that the quality of the data might have been degraded by pauses in the lecture when students were asking questions, etc. 
                             </p>
 
                             <h3>Kurzgesagt</h3>
@@ -250,15 +245,10 @@
                                 We picked Kurzgesagt because we love their videos, and they have human generated captions! These were crucial in order to have good transcriptions for each clip to train on. 
                             </p>
                             <p class="lead">
-                                We scraped a small subset of their videos (about 3 hours and 17 minutes total), parsed the subtitle files, and used ffmpeg to create clips cut at the caption timestamps.
+                                We <a href="https://colab.research.google.com/drive/1I-wbH6GeaSooRrgOWzupAg-6zD0nK807?usp=sharing" target="_blank">scraped a small subset of their videos</a> (about 3 hours and 17 minutes total), parsed the subtitle files, and used ffmpeg to create clips cut at the caption timestamps.
                             </p>
                             <p class="lead">
                                 We also attempted to scrape all their videos (about 16 hours, 36 minutes total). Our first mistake was putting all our clips in one folder, which led to Google Drive timeout issues. After splitting up the clips into multiple folders, we solved the data loader issues, but encountered runtime errors while training likely due to malformed data. Unfortunately we were never quite able to debug these, so we stuck to our original sample size. 
-                            </p>
-                            <p class="lead">
-                                <a href="https://colab.research.google.com/drive/1I-wbH6GeaSooRrgOWzupAg-6zD0nK807?usp=sharing" target="_blank">
-                                    Link to notebook
-                                </a>
                             </p>
                             <br>
                         </div>
@@ -315,7 +305,7 @@ then you have
                             <img src="static/graphs/test_perplexity.png" alt="Test Perplexity for Office 3.1 Model" style="width:100%">
                             <img src="static/graphs/train_loss.png" alt="Train Loss for Office 3.1 Model" style="width:100%">
                             <p class="lead">
-                                Something else that we got to investigate was the digging inside the model to look at the weight activations. While the majority of the weights were pretty randomly scattered, we did find certain weights that we could attach some sort of meaning to. For instance, cell 625 would be active for the the dialogue part of the generated output. 
+                                Something else that we got to investigate was the digging inside the model to look at the weight activations. While the majority of the weights were pretty randomly scattered, we did find certain weights that we could attach some sort of meaning to. For instance, cell 625 would be active for the dialogue part of the generated output. 
                             </p>
                             <img src="static/graphs/office3_1_activations.png" alt="Train Loss for Office 3.1 Model" style="width:100%">
                             <br>
