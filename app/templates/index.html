@@ -42,7 +42,7 @@
                                 from your favorite vlogger? Are you sitting there pulling down to refresh waiting for new content? <b>Well regardless... you don't have to miss a beat!</b>  
                             </p>
                             <p class="lead">
-                                Speech-to-Speech generates new video scripts and uses the original creator's voice to produce a realistic audio reading. 
+                                Speech-to-Speech generates new video scripts and visualizes a little of what the model is seeing.
                             </p>
                             <h3>Try it yourself!</h3>
                             <br>
@@ -51,6 +51,9 @@
                                     <label for="seedWords">Seed Words</label>
                                     <input type="text" class="form-control" name="seedWords" id="seedWords" placeholder="Enter seed words">
                                 </div>
+                                {% if error_message %}
+                                <p style="color: red"><i>{{ error_message }}</i></p>
+                                {% endif %}
                                 <div class="form-row">
                                     <div class="col">
                                         <p class="lead">Text Generator</p>
@@ -67,7 +70,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="languageModel" id="office" value="office">
+                                            <input class="form-check-input" type="radio" name="languageModel" id="office" value="office" checked>
                                             <label class="form-check-label" for="office">
                                               The Office
                                             </label>
@@ -85,7 +88,8 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <!-- Removed since audio is not hooked up -->
+                                    <!-- <div class="col">
                                         <p class="lead">Audio Reader</p>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="audioReader" id="stuartRegesVoice" value="stuartRegesVoice">
@@ -99,21 +103,21 @@
                                               Casey Neistat
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Generate</button>
                             </form>
             
                             <br>
-                            {% if text is not none %}
+                            {% if text %}
                                 <h3>Generated Text</h3>
                                 {% for p in text %}
                                     <p class="lead">{{ p }}</p>
                                 {% endfor %}
                             {% endif %}
                     
-                            {% if audio is not none %}
+                            {% if audio %}
                                 <h3>Audio Reading</h3>
                                 <p class="lead">
                                     <audio controls>
@@ -122,7 +126,7 @@
                                 </p>
                             {% endif %}
                     
-                            {% if visualizations is not none %}
+                            {% if visualizations %}
                                 <h3>
                                     Visualizatizing the Neurons
                                 </h3>

@@ -1,5 +1,6 @@
 import requests
-from flask import render_template, request, Markup
+import sys
+from flask import render_template, request, Markup, redirect, url_for
 from app import app
 
 @app.route('/')
@@ -10,8 +11,9 @@ def index():
     if data and data["seedWords"]:
         text_data = {"seedWords": data["seedWords"], "model": data["languageModel"]}
         res = requests.post("https://63332a7ef8f3.ngrok.io/generateText", data=text_data)
-        import sys
         print(res.text, file=sys.stderr)
+        if (res.status_code != 200):
+            return render_template('index.html', error_message="Unable to retrieve successful request from backend")
         print(res.json(), file=sys.stderr)
 
         text_raw = res.json()["text"]
