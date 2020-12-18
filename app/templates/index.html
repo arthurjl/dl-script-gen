@@ -26,7 +26,7 @@
             <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-demo-tab" data-toggle="pill" href="#v-pills-demo" role="tab" aria-controls="v-pills-demo" aria-selected="true">1 Demo</a>
-                    <a class="nav-link" id="v-pills-overview-tab" data-toggle="pill" href="#v-pills-overview" role="tab" aria-controls="v-pills-overview" aria-selected="false">2 Overview</a>
+                    <a class="nav-link" id="v-pills-overview-tab" data-toggle="pill" href="#v-pills-overview" role="tab" aria-controls="v-pills-overview" aria-selected="false">2 Overview/Video</a>
                     <a class="nav-link" id="v-pills-dataset-tab" data-toggle="pill" href="#v-pills-dataset" role="tab" aria-controls="v-pills-dataset" aria-selected="false">3 Dataset Creation</a>
                     <a class="nav-link" id="v-pills-language-tab" data-toggle="pill" href="#v-pills-language" role="tab" aria-controls="v-pills-language" aria-selected="false">4 Language Models</a>
                     <a class="nav-link" id="v-pills-speech-tab" data-toggle="pill" href="#v-pills-speech" role="tab" aria-controls="v-pills-speech" aria-selected="false">5 Speech Synthesis </a>
@@ -116,7 +116,7 @@
                                     <p class="lead">{{ p }}</p>
                                 {% endfor %}
                             {% endif %}
-                    
+<!--                     
                             {% if audio %}
                                 <h3>Audio Reading</h3>
                                 <p class="lead">
@@ -124,7 +124,7 @@
                                         <source src="{{ audio }}" type="audio/wav">
                                     </audio>
                                 </p>
-                            {% endif %}
+                            {% endif %} -->
                     
                             {% if visualizations %}
                                 <h3>
@@ -152,6 +152,12 @@
                             <audio controls>
                                 <source src="static/audio-examples/seal-scripts-intro.wav" type="audio/wav">
                             </audio>
+                            <p class="lead">
+                                Or maybe do take it from us :))
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/n-aoyOrLqfE" allowfullscreen></iframe>
+                                </div>
+                            </p>
                             <br>
                             <br>
                             <p class="lead">The goal of our project was to survey two interesting categories of DL. The first is text data generation, and the second is audio data generation. We intended to combine both of these together with a silly idea of generating random fake audio clips from these generated texts.</p>
@@ -255,8 +261,8 @@
                     </div>
                     <div class="tab-pane fade" id="v-pills-language" role="tabpanel" aria-labelledby="v-pills-language-tab">
                         <div>
-                            <h1>TextGeneration</h1>
-                            <p class="lead">We were largely inspired by Kaparthy’s article here:<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank">"The Unreasonable Effectiveness of Recurrent Neural Networks"</a>, which used models to generate text matching the style and information of existing data. With a title like that, we were hoping to reproduce and expand on the quality of the results that he had proclaimed.
+                            <h1>Text Generation</h1>
+                            <p class="lead">We were largely inspired by Kaparthy’s article here: <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank">"The Unreasonable Effectiveness of Recurrent Neural Networks"</a>, which used models to generate text matching the style and information of existing data. With a title like that, we were hoping to reproduce and expand on the quality of the results that he had proclaimed.
                             </p>
                             <h2>Building from Scratch</h2>
                             <p class="lead">Having collected various text datasets that were roughly the same size as the ones that Kaparthy utilized (~10 mb), we set out to train our own models.</p>
@@ -483,7 +489,7 @@ So that should take about 15 minutes so it's really
                                     <source src="static/audio-examples/cloning-stuart-get-started-48000.wav" type="audio/wav">
                                 </audio>
                             </p> 
-                            <p class="lead">Check out our <a href="https://colab.research.google.com/drive/1X5Xf-liLXdl83mb7RE54Wb_6RgmfO1ys?authuser=3#scrollTo=PHenc_Bdh9yh" target="_blank">voice cloning notebook</a> to try it out for yourself!</h2></p>
+                            <p class="lead">Check out our <a href="https://drive.google.com/file/d/1X5Xf-liLXdl83mb7RE54Wb_6RgmfO1ys/view?usp=sharing" target="_blank">voice cloning notebook</a> to try it out for yourself!</h2></p>
                                 
                             <br>
                             <h2>Experiment 2: <a href="https://github.com/r9y9/wavenet_vocoder" target="_blank">WaveNet Vocoder</a></h2>

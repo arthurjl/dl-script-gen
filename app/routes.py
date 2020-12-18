@@ -10,7 +10,11 @@ def index():
     # Generate some text with the data and the audio clip
     if data and data["seedWords"]:
         text_data = {"seedWords": data["seedWords"], "model": data["languageModel"]}
+<<<<<<< HEAD
         res = requests.post("https://68cd937e2a67.ngrok.io/generateText", data=text_data)
+=======
+        res = requests.post("https://c709c4f714d4.ngrok.io/generateText", data=text_data)
+>>>>>>> 922c35e02f2fd353a931091503154ab4dd9e6c9b
         import sys
         print(res.text, file=sys.stderr)
         if (res.status_code != 200):
